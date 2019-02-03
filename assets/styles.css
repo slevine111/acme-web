@@ -1,0 +1,24 @@
+.navbar-light .navbar-nav .nav-link {
+  color: dodgerblue;
+}
+
+.navbar-light .navbar-collapse .navbar-nav .chosen-link {
+  color: rgba(0, 0, 0, 0.7);
+}
+
+nav {
+  width: 50%;
+  margin-bottom: 30px;
+}
+
+body {
+  margin-left: 20%;
+}
+
+h1 {
+  margin: 20px 0;
+}
+
+h2 + div {
+  margin-bottom: 10px;
+}
