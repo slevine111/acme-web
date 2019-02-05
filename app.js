@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const morgan = require('morgan')
-const { getAllPagesInfo, getPageInfo, getPageContent } = require('./db')
+const { getAllPagesInfo, getPageContent } = require('./db')
 const {
   generateHTMLStructureStart,
   generateHTMLStructureEnd,
@@ -30,16 +30,21 @@ app.get('/pages', (req, res) => {
 })
 
 app.get('/pages/:id', (req, res) => {
-  getPageInfo(req.params.id)
-    .then(pageInfo => getPageContent(pageInfo.id))
-    .then(pageContent =>
+  getPageContent(req.params.id)
+    .then(pageContent => {
       res.send(`${generateHTMLStructureStart(Number(req.params.id), req.pages)}
                 ${generatePageSpecificHTML(pageContent)}
                 ${generateHTMLStructureEnd()}`)
-    )
-    .catch(err => {
-      throw err
     })
+    .catch(err => {
+      res.statusCode = 404
+      res.send(`<p>The following error has occured - ${err}</p>
+                <p>We will resolve it as soon as possible</p>`)
+    })
+})
+
+app.get('/test', (req, res) => {
+  res.status(200).json({ name: 'john' })
 })
 
 module.exports = app

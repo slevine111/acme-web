@@ -49,17 +49,6 @@ const getAllPagesInfo = () => {
     .then(res => res.rows)
 }
 
-const getPageInfo = id => {
-  return client
-    .query(
-      `SELECT id, name, is_home_page
-       FROM pages
-       WHERE id = $1`,
-      [id]
-    )
-    .then(res => res.rows[0])
-}
-
 const getPageContent = pageId => {
   return client
     .query(
@@ -71,21 +60,4 @@ const getPageContent = pageId => {
     .then(res => res.rows)
 }
 
-module.exports = { sync, getAllPagesInfo, getPageInfo, getPageContent }
-
-/*new Promise((res, rej) => {
-  res()
-})
-  .then(() => getPageContent(2))
-  .then(data => console.log(data))
-  .catch(() => console.log('err'))
-//console.log(getPageInfo(1))*/
-
-/*let t = client
-  .query('')
-  .then(() => {
-    console.log('here')
-  })
-  .catch(() => console.log('error'))
-
-t.then(() => client.end()).catch(() => {})*/
+module.exports = { sync, getAllPagesInfo, getPageContent }
