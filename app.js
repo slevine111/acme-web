@@ -29,7 +29,7 @@ app.get('/pages', (req, res) => {
   res.redirect('/pages/1')
 })
 
-app.get('/pages/:id', (req, res) => {
+app.get('/pages/:id', (req, res, next) => {
   getPageContent(req.params.id)
     .then(pageContent => {
       res.send(`${generateHTMLStructureStart(Number(req.params.id), req.pages)}
@@ -37,9 +37,8 @@ app.get('/pages/:id', (req, res) => {
                 ${generateHTMLStructureEnd()}`)
     })
     .catch(err => {
-      res.statusCode = 404
-      res.send(`<p>The following error has occured - ${err}</p>
-                <p>We will resolve it as soon as possible</p>`)
+      console.error(err)
+      next(err)
     })
 })
 
